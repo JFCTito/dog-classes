@@ -1,0 +1,65 @@
+{
+    "dogs": [
+      {
+        "breed": "Golden Retriever",
+        "size": "Medium",
+        "color": "Golden",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Dachshund",
+        "size": "Small",
+        "color": "Brown",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Siberian Husky",
+        "size": "Large",
+        "color": "Gray and White",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Labrador Retriever",
+        "size": "Large",
+        "color": "Yellow",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Beagle",
+        "size": "Small",
+        "color": "Tricolor",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "German Shepherd",
+        "size": "Large",
+        "color": "Tan and Black",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Poodle",
+        "size": "Small",
+        "color": "White",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Boxer",
+        "size": "Large",
+        "color": "Brindle",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Dalmatian",
+        "size": "Medium",
+        "color": "Black and White",
+        "img": "https://picsum.photos/500/300"
+      },
+      {
+        "breed": "Shih Tzu",
+        "size": "Small",
+        "color": "White and Brown",
+        "img": "https://picsum.photos/500/300"
+      }
+    ]
+  }
+  

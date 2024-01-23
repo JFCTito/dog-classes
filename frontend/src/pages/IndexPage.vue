@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="row">
+    <div class="row justify-center">
       <div class="col-12 col-md-4 col-lg-4 q-pa-xl">
         <div class="text-center">
           <q-img

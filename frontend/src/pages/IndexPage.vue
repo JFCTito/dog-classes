@@ -58,7 +58,7 @@
           <div class="q-photo-container">
           <q-img
             v-if="form.photo !== ''"
-            :src="form.photo"
+            :src="form.photoUrl"
             spinner-color="white"
             height="140px"
             style="max-width: 150px; margin: 0 auto; display: block"
@@ -105,7 +105,7 @@ const form = ref({
     value: '',
     required: true
   },
-  color: {
+  hairColor: {
     value: '',
     required: true
   },
@@ -170,9 +170,7 @@ const handleImageUpload = (event) => {
     width: 70%;
     margin-top: 10px;
   }
-
   .q-photo-container img[src=''] {
   display: none;
   }
-
 </style>

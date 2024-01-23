@@ -76,7 +76,7 @@
         <div class="row">
               <q-card class="q-mt-sm col-6 col-md-4 col-lg-3" v-for="dog in dogs" :key="dog.breed">
                 <q-card-section>
-                  <q-img :src="dog.img" spinner-color="white" height="140px" style="max-width: 100%" />
+                  <q-img :src="dog.photo" spinner-color="white" height="140px" style="max-width: 100%" />
                 </q-card-section>
                 <q-card-section>
                   <q-card-section>
@@ -93,8 +93,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import dogsData from '../assets/dogs.json'
+import { ref, onMounted } from 'vue'
+import { DogService } from '../services/DogService'
 
 const form = ref({
   breed: {
@@ -115,6 +115,25 @@ const form = ref({
   }
 })
 
+const dogs = ref([])
+
+const fetchDogs = async () => {
+  try {
+    const response = await DogService.getAllDogs()
+    dogs.value = response.data
+    // console.log(object)
+  } catch (error) {
+    console.error('Error fetching dogs:', error)
+  }
+}
+
+onMounted(fetchDogs)
+
+const handleImageUpload = (event) => {
+  console.log('evento')
+  console.log(event)
+}
+
 const submitForm = () => {
   const formData = {
     breed: form.value.breed.value,
@@ -126,12 +145,6 @@ const submitForm = () => {
   console.log('Informacion ingresada: ', formData)
 }
 
-const handleImageUpload = (event) => {
-  console.log('evento')
-  console.log(event)
-}
-
-const dogs = ref(dogsData.dogs)
 </script>
 
 <style scoped>

@@ -35,16 +35,16 @@
             class="q-mt-sm"
             outlined
             label="Color de pelaje"
-            v-model="form.color.value"
-            :error="form.color.error"
-            :error-message="form.color.msg">
+            v-model="form.hairColor.value"
+            :error="form.hairColor.error"
+            :error-message="form.hairColor.msg">
             <template v-slot:prepend>
               <q-icon name="palette"></q-icon>
             </template>
           </q-input>
           <q-file
             class="q-mt-sm"
-            v-model="form.img.value"
+            v-model="form.photo"
             outlined
             label="Unicamente imagenes"
             accept=".jpg, image/*"
@@ -52,13 +52,13 @@
           >
           <template v-slot:prepend>
             <q-icon name="attach_file" />
-            <q-icon v-if="form.img.value !== ''" name="close" @click.stop.prevent="form.img.value = ''" class="cursor-pointer" />
+            <q-icon v-if="form.photo !== ''" name="close" @click.stop.prevent="form.photo = ''" class="cursor-pointer" />
           </template>
           </q-file>
-          <div class="q-img-container">
+          <div class="q-photo-container">
           <q-img
-            v-if="form.img.value !== ''"
-            :src="form.img.value"
+            v-if="form.photo !== ''"
+            :src="form.photo"
             spinner-color="white"
             height="140px"
             style="max-width: 150px; margin: 0 auto; display: block"
@@ -109,10 +109,8 @@ const form = ref({
     value: '',
     required: true
   },
-  img: {
-    value: '',
-    required: true
-  }
+  photo: '',
+  photoUrl: ''
 })
 
 const dogs = ref([])
@@ -121,7 +119,6 @@ const fetchDogs = async () => {
   try {
     const response = await DogService.getAllDogs()
     dogs.value = response.data
-    // console.log(object)
   } catch (error) {
     console.error('Error fetching dogs:', error)
   }
@@ -129,20 +126,38 @@ const fetchDogs = async () => {
 
 onMounted(fetchDogs)
 
-const handleImageUpload = (event) => {
-  console.log('evento')
-  console.log(event)
-}
-
-const submitForm = () => {
-  const formData = {
-    breed: form.value.breed.value,
-    size: form.value.size.value,
-    color: form.value.color.value,
-    img: form.value.img.value ? form.value.img.value.name : ''
-  }
+const submitForm = async () => {
+  const formData = new FormData()
+  formData.append('breed', form.value.breed.value)
+  formData.append('size', form.value.size.value)
+  formData.append('hairColor', form.value.hairColor.value)
+  formData.append('photo', form.value.photo)
 
   console.log('Informacion ingresada: ', formData)
+
+  try {
+    const response = await DogService.createDog(formData)
+    console.log('Dog created:', response)
+    form.value.breed.value = ''
+    form.value.size.value = ''
+    form.value.hairColor.value = ''
+    form.value.photo = ''
+    form.value.photoUrl = ''
+    fetchDogs()
+  } catch (error) {
+    console.error('Error creating dog:', error)
+  }
+}
+
+const handleImageUpload = (event) => {
+  form.value.photo = event
+  if (event instanceof File) {
+    const reader = new FileReader()
+    reader.onload = () => {
+      form.value.photoUrl = reader.result
+    }
+    reader.readAsDataURL(event)
+  }
 }
 
 </script>
@@ -156,7 +171,7 @@ const submitForm = () => {
     margin-top: 10px;
   }
 
-  .q-img-container img[src=''] {
+  .q-photo-container img[src=''] {
   display: none;
   }
 

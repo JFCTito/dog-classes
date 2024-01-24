@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="row justify-center">
-      <div class="col-12 col-md-4 col-lg-4 q-pa-xl">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-4 q-pa-xl form-section">
         <div class="text-center">
           <q-img
             class="logo"
@@ -76,7 +76,7 @@
         <div class="row">
               <q-card class="q-mt-sm col-6 col-md-4 col-lg-3" v-for="dog in dogs" :key="dog.breed">
                 <q-card-section>
-                  <q-img :src="dog.photo" spinner-color="white" height="140px" style="max-width: 100%" />
+                  <q-img :src="dog.photo" spinner-color="white" style="max-width: 100%" :fit="contain" />
                 </q-card-section>
                 <q-card-section>
                   <q-card-section>
@@ -172,5 +172,9 @@ const handleImageUpload = (event) => {
   }
   .q-photo-container img[src=''] {
   display: none;
+  }
+
+  .form-section {
+    height: 100vh;
   }
 </style>
